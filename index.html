@@ -1,76 +1,110 @@
-const sections = [
-  {
-    title: "Начало",
-    description: "Добре дошли в курса! В това въведение ще получите обща представа за съдържанието на курса, как да навигирате между секциите и как да използвате менюто. Ще обсъдим основните цели на курса и какво ще научите.",
-    video: "videos/16381072-hd_1920_1080_25fps.mp4",
-    quiz: {
-      question: "Какво представлява HTML?",
-      options: [
-        "Език за стилизиране",
-        "Език за структура на уеб страници",
-        "Програмен език за изчисления"
-      ],
-      answer: 1
-    }
-  },
-  {
-    title: "HTML основи",
-    description: "Научете основните HTML тагове: заглавия, параграфи, списъци, връзки и изображения. Ще изградите първата си уеб страница и ще разберете как да структурирате съдържанието по смислен начин.",
-    video: "videos/16381072-hd_1920_1080_25fps.mp4",
-    quiz: {
-      question: "Кой HTML таг се използва за основно заглавие?",
-      options: ["<h1>", "<p>", "<div>"],
-      answer: 0
-    }
-  },
-  {
-    title: "CSS стилове",
-    description: "Създавайте стилове и оформления с CSS. Научете за селектори, класове, ID-та, цветове, шрифтове и layout с Flexbox и Grid. Ще видите как да направите страницата си визуално привлекателна и удобна за потребителите.",
-    video: "videos/16381072-hd_1920_1080_25fps.mp4",
-    quiz: {
-      question: "Кой CSS свойство задава цвета на текста?",
-      options: ["color", "font-size", "background-color"],
-      answer: 0
-    }
-  },
-  {
-    title: "JavaScript основи",
-    description: "Добавете интерактивност към уеб страниците с JavaScript. Ще се запознаете с променливи, функции, събития и условия. Ще научите как да реагирате на действията на потребителя и да променяте съдържанието динамично.",
-    video: "videos/16381072-hd_1920_1080_25fps.mp4",
-    quiz: {
-      question: "Кой е правилният начин да обявите променлива в JavaScript?",
-      options: ["let", "var", "И двете"],
-      answer: 2
-    }
-  },
-  {
-    title: "Форми и валидиране",
-    description: "Създавайте HTML форми за въвеждане на данни от потребителите. Ще научите как да използвате текстови полета, радио бутони, падащи менюта и как да валидирате данните с JavaScript, за да гарантирате коректност.",
-    video: "videos/16381072-hd_1920_1080_25fps.mp4",
-    quiz: {
-      question: "Кой HTML атрибут прави полето задължително за попълване?",
-      options: ["required", "checked", "disabled"],
-      answer: 0
-    }
-  },
-  {
-    title: "Адаптивен дизайн",
-    description: "Научете как да правите уеб сайтовете адаптивни (responsive), така че да изглеждат добре както на десктоп, така и на мобилни устройства. Ще работите с media queries, Flexbox и CSS Grid, за да постигнете професионално оформление.",
-    video: "videos/16381072-hd_1920_1080_25fps.mp4",
-    quiz: {
-      question: "Кой е правилният синтаксис за media query в CSS?",
-      options: ["@media", "@screen", "@query"],
-      answer: 0
-    }
-  },
-  {
-    title: "Финални съвети и следващи стъпки",
-    description: "Поздравления, приключихте курса! В тази секция ще обобщим наученото, ще дадем съвети за практическа работа и насоки за следващи стъпки – като изучаване на съвременни JavaScript frameworks или създаване на собствени проекти.",
-    video: "videos/16381072-hd_1920_1080_25fps.mp4",
-    quiz: {
-      question: "Какво е важно при следващите стъпки след този курс?",
-      options: ["Да се практикува постоянно", "Да се забрави всичко", "Да се учи само теория"],
-      answer: 0
-    }
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Модерен Онлайн Курс</title>
+<style>
+  /* Reset & global */
+  * { margin:0; padding:0; box-sizing:border-box; font-family:"Inter","Segoe UI",Tahoma,sans-serif; }
+  body { display:flex; min-height:100vh; background:#f0f4f8; overflow-x:hidden; }
+
+  /* Hamburger */
+  .hamburger {
+    display:none;
+    font-size:1.8rem;
+    cursor:pointer;
+    margin-bottom: 15px;
   }
+
+  /* Sidebar */
+  .sidebar {
+    width:280px;
+    background: linear-gradient(180deg, #1e293b, #0f172a);
+    color:white;
+    padding:30px 20px;
+    display:flex;
+    flex-direction:column;
+    transition: all 0.3s ease;
+  }
+  .sidebar h2 { font-size:1.5rem; font-weight:700; margin-bottom:24px; letter-spacing:0.5px; }
+  .nav { list-style:none; flex-grow:1; transition: all 0.3s ease; }
+  .nav li { padding:14px 16px; margin-bottom:12px; border-radius:12px; cursor:pointer; transition: all 0.3s ease; font-size:1rem; }
+  .nav li:hover { background: rgba(255,255,255,0.1); transform:translateX(5px); }
+  .nav li.active { background:#3b82f6; font-weight:600; box-shadow:0 6px 15px rgba(59,130,246,0.5); }
+
+  /* Gradient progress bar */
+  .progress-container { height:8px; background: rgba(255,255,255,0.2); border-radius:4px; margin-bottom:20px; overflow:hidden; }
+  .progress-bar { height:100%; width:0%; background: linear-gradient(90deg,#3b82f6,#06b6d4,#22c55e); transition: width 0.5s ease; }
+
+  /* Main Content */
+  .main { flex-grow:1; padding:40px; overflow-y:auto; display:flex; justify-content:center; }
+  .content { max-width:900px; width:100%; background: rgba(255,255,255,0.9); padding:36px; border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,0.1); backdrop-filter:blur(8px); animation:fadeIn 0.6s ease; }
+  .content h1 { font-size:2rem; margin-bottom:16px; color:#1e293b; font-weight:700; }
+  .content p { font-size:1.05rem; margin-bottom:20px; color:#475569; line-height:1.6; }
+
+  /* Animations */
+  @keyframes fadeIn { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
+
+  /* Responsive */
+  @media(max-width:768px){
+    body{flex-direction:column;}
+    .hamburger{display:block;}
+    .sidebar{position:absolute; top:0; left:-300px; height:100%; z-index:100; width:250px; transition: left 0.3s ease; padding-top:60px;}
+    .sidebar.show{left:0;}
+    .main{padding:20px;}
+  }
+</style>
+</head>
+<body>
+  <div class="hamburger" onclick="toggleSidebar()">☰</div>
+  <div class="sidebar" id="sidebar">
+    <h2>Твоят Курс</h2>
+    <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+    <ul class="nav" id="navList"></ul>
+  </div>
+
+  <div class="main">
+    <div class="content" id="content"></div>
+  </div>
+
+<script>
+const sections = [
+  {title:"Начало", description:"Тук може да добавим вашата информация. Тази секция може да съдържа въведение, цели и общи насоки за курса. Разкажете повече за това, което потребителите ще научат и защо това е полезно."},
+  {title:"HTML основи", description:"Тук може да добавим вашата информация за HTML. Обяснете основните тагове, структурата на страницата и как да създадем семантично съдържание. Може да добавите примери и полезни съвети."},
+  {title:"CSS стилове", description:"Тук може да добавим информация за CSS. Обяснете как да стилизираме елементи, използвайки класове, селектори и flexbox/grid. Включете препоръки за цветове, шрифтове и оформление."},
+  {title:"JavaScript основи", description:"Тук може да добавим информация за JavaScript. Обяснете променливи, функции, събития и интерактивност. Може да дадете примери за динамични промени в съдържанието."},
+  {title:"Форми и валидиране", description:"Тук може да добавим информация за форми. Опишете как да създаваме текстови полета, бутони, падащи менюта и да валидираме данните, за да гарантираме правилно въвеждане."},
+  {title:"Адаптивен дизайн", description:"Тук може да добавим информация за responsive дизайн. Обяснете как да създаваме уеб страници, които работят добре на мобилни устройства и десктоп. Използвайте media queries и CSS Grid/Flexbox."},
+  {title:"Финални съвети", description:"Тук може да добавим финални съвети. Дайте насоки за следващи стъпки, практическо приложение и препоръки за изучаване на нови технологии и създаване на собствени проекти."}
 ];
+
+const navList = document.getElementById("navList");
+const content = document.getElementById("content");
+const progressBar = document.getElementById("progressBar");
+const sidebar = document.getElementById("sidebar");
+
+sections.forEach((section,index)=>{
+  const li = document.createElement("li");
+  li.textContent = section.title;
+  li.addEventListener("click",()=>loadContent(index));
+  if(index===0) li.classList.add("active");
+  navList.appendChild(li);
+});
+
+function loadContent(index){
+  const section = sections[index];
+  content.innerHTML = `<h1>${section.title}</h1><p>${section.description}</p>`;
+  document.querySelectorAll(".nav li").forEach((li,i)=>li.classList.toggle("active",i===index));
+  progressBar.style.width = ((index+1)/sections.length*100)+"%";
+
+  // Close sidebar on mobile after selection
+  if(window.innerWidth<768) sidebar.classList.remove("show");
+}
+
+function toggleSidebar(){ sidebar.classList.toggle("show"); }
+
+loadContent(0);
+</script>
+</body>
+</html>
