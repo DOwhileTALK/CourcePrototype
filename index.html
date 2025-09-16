@@ -15,6 +15,7 @@
     font-size:1.8rem;
     cursor:pointer;
     margin-bottom: 15px;
+    padding: 10px;
   }
 
   /* Sidebar */
@@ -42,6 +43,7 @@
   .content { max-width:900px; width:100%; background: rgba(255,255,255,0.9); padding:36px; border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,0.1); backdrop-filter:blur(8px); animation:fadeIn 0.6s ease; }
   .content h1 { font-size:2rem; margin-bottom:16px; color:#1e293b; font-weight:700; }
   .content p { font-size:1.05rem; margin-bottom:20px; color:#475569; line-height:1.6; }
+  .content video { width:100%; border-radius:14px; box-shadow:0 8px 25px rgba(0,0,0,0.15); margin-bottom:20px; }
 
   /* Animations */
   @keyframes fadeIn { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
@@ -70,13 +72,13 @@
 
 <script>
 const sections = [
-  {title:"Начало", description:"Тук може да добавим вашата информация. Тази секция може да съдържа въведение, цели и общи насоки за курса. Разкажете повече за това, което потребителите ще научат и защо това е полезно."},
-  {title:"HTML основи", description:"Тук може да добавим вашата информация за HTML. Обяснете основните тагове, структурата на страницата и как да създадем семантично съдържание. Може да добавите примери и полезни съвети."},
-  {title:"CSS стилове", description:"Тук може да добавим информация за CSS. Обяснете как да стилизираме елементи, използвайки класове, селектори и flexbox/grid. Включете препоръки за цветове, шрифтове и оформление."},
-  {title:"JavaScript основи", description:"Тук може да добавим информация за JavaScript. Обяснете променливи, функции, събития и интерактивност. Може да дадете примери за динамични промени в съдържанието."},
-  {title:"Форми и валидиране", description:"Тук може да добавим информация за форми. Опишете как да създаваме текстови полета, бутони, падащи менюта и да валидираме данните, за да гарантираме правилно въвеждане."},
-  {title:"Адаптивен дизайн", description:"Тук може да добавим информация за responsive дизайн. Обяснете как да създаваме уеб страници, които работят добре на мобилни устройства и десктоп. Използвайте media queries и CSS Grid/Flexbox."},
-  {title:"Финални съвети", description:"Тук може да добавим финални съвети. Дайте насоки за следващи стъпки, практическо приложение и препоръки за изучаване на нови технологии и създаване на собствени проекти."}
+  {title:"Начало", description:"Тук може да добавим вашата информация. Тази секция може да съдържа въведение, цели и общи насоки за курса.", video:"videos/video1.mp4"},
+  {title:"HTML основи", description:"Тук може да добавим вашата информация за HTML. Обяснете основните тагове и структурата на страницата.", video:"videos/video2.mp4"},
+  {title:"CSS стилове", description:"Тук може да добавим информация за CSS. Обяснете как да стилизираме елементи, използвайки класове и селектори.", video:"videos/video3.mp4"},
+  {title:"JavaScript основи", description:"Тук може да добавим информация за JavaScript. Обяснете променливи, функции и интерактивност.", video:"videos/video4.mp4"},
+  {title:"Форми и валидиране", description:"Тук може да добавим информация за форми. Опишете как да създаваме текстови полета, бутони и да валидираме данните.", video:"videos/video5.mp4"},
+  {title:"Адаптивен дизайн", description:"Тук може да добавим информация за responsive дизайн. Обяснете как да създаваме уеб страници за мобилни и десктоп устройства.", video:"videos/video6.mp4"},
+  {title:"Финални съвети", description:"Тук може да добавим финални съвети и препоръки за следващи стъпки и практическо приложение.", video:"videos/video7.mp4"}
 ];
 
 const navList = document.getElementById("navList");
@@ -94,11 +96,17 @@ sections.forEach((section,index)=>{
 
 function loadContent(index){
   const section = sections[index];
-  content.innerHTML = `<h1>${section.title}</h1><p>${section.description}</p>`;
+  content.innerHTML = `
+    <h1>${section.title}</h1>
+    <p>${section.description}</p>
+    <video controls autoplay muted>
+      <source src="${section.video}" type="video/mp4">
+      Вашият браузър не поддържа видео.
+    </video>
+  `;
   document.querySelectorAll(".nav li").forEach((li,i)=>li.classList.toggle("active",i===index));
   progressBar.style.width = ((index+1)/sections.length*100)+"%";
 
-  // Close sidebar on mobile after selection
   if(window.innerWidth<768) sidebar.classList.remove("show");
 }
 
